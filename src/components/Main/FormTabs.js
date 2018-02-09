@@ -21,9 +21,13 @@ export default class FormTabs extends React.Component {
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
+      console.log(tab);
       this.setState({
         activeTab: tab
       });
+      if (tab === "2") {
+        this.props.refreshStudents();
+      }
     }
   }
   render() {
@@ -42,7 +46,6 @@ export default class FormTabs extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              disabled
               className={classnames({ active: this.state.activeTab === "2" })}
               onClick={() => {
                 this.toggle("2");
@@ -68,8 +71,18 @@ export default class FormTabs extends React.Component {
                 <h4>Tab 1 Contents</h4>
               </Col>
             </Row>
+            */}
           </TabPane>
-          <TabPane tabId="2">
+          <TabPane tabId="2">{this.props.studentScreen}</TabPane>
+        </TabContent>
+      </Container>
+    );
+  }
+}
+
+{
+  /* 
+<TabPane tabId="2">
             <Row>
               <Col sm="6">
                 <Card body>
@@ -91,10 +104,6 @@ export default class FormTabs extends React.Component {
                   <Button>Go somewhere</Button>
                 </Card>
               </Col>
-            </Row> */}
-          </TabPane>
-        </TabContent>
-      </Container>
-    );
-  }
+            </Row> 
+          </TabPane> */
 }
