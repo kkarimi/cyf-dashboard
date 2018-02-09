@@ -8,7 +8,7 @@ const StudentScreen = ({ deals, dealEmails, filters, refresh }) => (
     <StudentSearchForm filters={filters} />
     <DealTable deals={deals} refresh={refresh} />
     <hr />
-    <Email deals={deals} dealEmails={dealEmails} type="student" />
+    <Email deals={deals} dealEmails={dealEmails} emailType="student" />
   </div>
 );
 
