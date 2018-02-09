@@ -50,18 +50,31 @@ export default class Email extends Component {
     });
   };
 
-  renderMentorEmails = () => {
-    const { mentors, mentorEmails } = this.props;
+  renderTemplatesList = () => {
     return (
-      <span key={mentors.length}>
-        <span id="mentorEmailsTip">{mentors.length} mentors</span>
+      <ul>
+        <li>
+          <div className="link" onClick={this.welcomeNewStudent}>
+            Welcome New Student
+          </div>
+        </li>
+      </ul>
+    );
+  };
+  renderMentorEmails = () => {
+    const { deals, dealEmails, emailType } = this.props;
+    return (
+      <span key={deals.length}>
+        <span id="mentorEmailsTip">
+          {deals.length} {emailType}s
+        </span>
         <Tooltip
           placement="right"
           isOpen={this.state.tooltipOpen}
           target="mentorEmailsTip"
           toggle={this.tooltipToggle}
         >
-          {mentorEmails.join(",")}
+          {dealEmails ? dealEmails.join(",") : ""}
         </Tooltip>
       </span>
     );
@@ -106,13 +119,7 @@ export default class Email extends Component {
                   <strong>Templates:</strong>
                 </Label>
                 <br />
-                <ul>
-                  <li>
-                    <div className="link" onClick={this.welcomeNewStudent}>
-                      Welcome New Student
-                    </div>
-                  </li>
-                </ul>
+                {this.renderTemplatesList()}
                 <Label for="checkbox2" sm={2}>
                   <strong>Ops:</strong>
                 </Label>
