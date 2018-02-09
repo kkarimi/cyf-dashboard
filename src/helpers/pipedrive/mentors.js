@@ -3,17 +3,7 @@ import { cohorts, getCity } from "../cyf";
 // import { moveDeal } from "./index";
 // import { sendEmail } from "../email";
 
-import { PIPEDRIVE, MENTORS } from "./constants";
-
-const getStage = stageID => {
-  if (stageID === 22) return MENTORS.status.SIGNED_UP;
-  if (stageID === 41) return MENTORS.status.CONTACTED;
-  if (stageID === 35) return MENTORS.status.MOTIVATED;
-  if (stageID === 33) return MENTORS.status.EMAILED;
-  if (stageID === 23) return MENTORS.status.INTRO_CHAT;
-  if (stageID === 24) return MENTORS.status.ATTENDED_CLASS;
-  if (stageID === 25) return MENTORS.status.POTENTIAL_ORGANISER;
-};
+import { PIPEDRIVE, MENTORS, getMentorStage } from "./constants";
 
 const removeNewLine = name => {
   if (name) return name.replace(/(\r\n|\n|\r)/gm, "");
@@ -26,7 +16,7 @@ const reshape = deals => {
     pipeline_id = pipeline_id === MENTORS.pipeline ? "mentor" : "";
     person_name = removeNewLine(person_name);
 
-    const stage = getStage(deal.stage_id);
+    const stage = getMentorStage(deal.stage_id);
 
     let locality_field = deal[MENTORS.fields.LOCALITY];
     let mentor_locality = getCity(locality_field);
@@ -74,9 +64,10 @@ function nameFilter(deals, name) {
 }
 
 const getFromPipeDrive = () => {
-  return fetch(PIPEDRIVE.api.mentors_deal)
+  return fetch(PIPEDRIVE.api.mentor_deal)
     .then(body => body.json())
-    .then(response => response.data || []);
+    .then(response => response.data || [])
+    .catch(error => Error(error));
 };
 
 const cleanup = mentors => {
@@ -89,7 +80,8 @@ export const getMentors = (city, stage, name) => {
     .then(deals => cleanup(deals))
     .then(deals => stageFilter(deals, stage))
     .then(deals => cityFilter(deals, city))
-    .then(deals => nameFilter(deals, name));
+    .then(deals => nameFilter(deals, name))
+    .catch(error => Error(error));
 };
 
 // export const processDeals = deals => {
