@@ -1,27 +1,23 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Label, Input, Col } from "reactstrap";
 
+const selectStyle = {
+  width: "200px"
+};
+
 export default class SearchForm extends Component {
-  state = {
-    name: ""
-  };
+  state = {};
   _handleKeyPress = e => {
-    if (e) {
-      console.info(e);
-    }
-    if (e.key === "Enter") {
-      e.preventDefault();
-      debugger;
-      this.props.filters.name(e);
-    }
+    e.preventDefault();
+    // if (e.key === "Enter") {
+    // debugger;
+    this.props.filterActions.name(e);
   };
   _handleNameChange = e => {
     e.preventDefault();
     const name = e.target.value;
-    console.info(name);
-    debugger;
-    this.setState({ name: name });
-    this.props.filters.name(name);
+
+    this.props.filterActions.name(name);
   };
   render() {
     const { filters, filterActions } = this.props;
@@ -41,6 +37,7 @@ export default class SearchForm extends Component {
                 name="select"
                 id="city"
                 onChange={filterActions.city}
+                style={selectStyle}
               >
                 <option>London</option>
                 <option>Manchester</option>
@@ -62,6 +59,7 @@ export default class SearchForm extends Component {
                 id="stage"
                 value={filters.stage}
                 onChange={filterActions.stage}
+                style={selectStyle}
               >
                 <option>All</option>
                 <option>Signed Up</option>
@@ -85,8 +83,7 @@ export default class SearchForm extends Component {
                 id="name"
                 placeholder=""
                 onChange={this._handleNameChange}
-                onBlur={filters.name}
-                onKeyPress={this._handleKeyPress}
+                onBlur={this._handleNameChange}
                 value={filters.name}
               />
             </Col>

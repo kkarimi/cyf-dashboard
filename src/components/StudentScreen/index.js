@@ -14,7 +14,7 @@ const StudentScreen = ({
     <StudentSearchForm filters={filters} filterActions={filterActions} />
     <DealTable deals={deals} refresh={refresh} />
     <hr />
-    <Email deals={deals} dealEmails={dealEmails} emailType="student" />
+    <Email deals={deals} emailType="student" />
   </div>
 );
 

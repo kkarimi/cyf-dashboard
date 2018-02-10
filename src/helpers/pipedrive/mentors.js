@@ -51,9 +51,10 @@ const stageFilter = (deals, stage) => {
 };
 
 function nameFilter(deals, name) {
-  if (name !== null && name !== undefined) {
+  if (name !== null && name !== undefined && name !== "") {
     return deals.filter(obj => {
       if (obj.name) {
+        console.info(`searching for ${name} in ${obj.name}`);
         let mentorName = obj.name.toLowerCase();
         return mentorName.includes(name.toLowerCase());
       }

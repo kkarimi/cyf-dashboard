@@ -72,13 +72,11 @@ class Main extends Component {
     this.refreshMentors(mentorCity, mentorStage, mentorName);
   }
 
-  filter = e => {};
-
   changeMentorStage = e => {
     const stage = e.target.value;
     const { mentorCity, mentorName } = this.state;
     console.info(stage);
-    debugger;
+
     this.setState(
       {
         mentorStage: stage
@@ -98,12 +96,11 @@ class Main extends Component {
     });
   };
 
-  changeMentorName = e => {
-    const name = e.target.value;
+  changeMentorName = name => {
     const { mentorStage, mentorCity } = this.state;
-    console.info(name);
-    this.setState({ name: name }, () =>
-      this.refreshMentors(mentorCity, mentorStage, name)
+    const mentorName = name;
+    this.setState({ mentorName: name }, () =>
+      this.refreshMentors(mentorCity, mentorStage, mentorName)
     );
   };
 
@@ -134,16 +131,6 @@ class Main extends Component {
     );
   };
 
-  mentorEmails = () => {
-    const { mentors } = this.state;
-    return mentors.map(mentor => mentor.email);
-  };
-
-  studentEmails = () => {
-    const { students } = this.state;
-    return students.map(student => student.email);
-  };
-
   changeScreen = () => {
     this.refreshMentors();
     this.refreshStudents();
@@ -172,8 +159,6 @@ class Main extends Component {
       stage: this.state.mentorStage,
       city: this.state.mentorCity
     };
-    const mentorEmails = this.mentorEmails();
-    const studentEmails = this.studentEmails();
 
     return (
       <div className="box">
@@ -183,7 +168,6 @@ class Main extends Component {
           mentorScreen={
             <MentorScreen
               deals={mentors}
-              dealEmails={mentorEmails}
               filterActions={mentorFilterActions}
               filters={mentorFilters}
             />
@@ -191,7 +175,6 @@ class Main extends Component {
           studentScreen={
             <StudentScreen
               deals={students}
-              dealEmails={studentEmails}
               filterActions={studentFilterActions}
               filters={studentFilters}
             />

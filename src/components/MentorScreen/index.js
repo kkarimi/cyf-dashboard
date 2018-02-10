@@ -14,7 +14,7 @@ const MentorScreen = ({
     <SearchForm filters={filters} filterActions={filterActions} />
     <DealTable deals={deals} refresh={refresh} />
     <hr />
-    <Email deals={deals} dealEmails={mentorEmails} emailType="mentor" />
+    <Email deals={deals} emailType="mentor" />
   </div>
 );
 

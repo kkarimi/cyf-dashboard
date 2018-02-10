@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Label, Input, Col } from "reactstrap";
 
+const selectStyle = {
+  width: "200px"
+};
+
 export default class StudentSearchForm extends Component {
   state = {};
   _handleKeyPress = e => {
@@ -27,13 +31,14 @@ export default class StudentSearchForm extends Component {
                 id="city"
                 value={filters.city}
                 onChange={filterActions.city}
+                style={selectStyle}
               >
-                <option>All</option>
                 <option>London</option>
                 <option>Manchester</option>
                 <option>Glasgow</option>
                 <option>General</option>
                 <option>Other</option>
+                <option>All</option>
               </Input>
             </Col>
           </FormGroup>
@@ -48,6 +53,7 @@ export default class StudentSearchForm extends Component {
                 name="select"
                 id="stage"
                 onChange={filterActions.stage}
+                style={selectStyle}
               >
                 <option>All</option>
                 <option>General Application</option>

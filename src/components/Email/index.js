@@ -61,29 +61,42 @@ export default class Email extends Component {
       </ul>
     );
   };
-  renderMentorEmails = () => {
-    const { deals, dealEmails, emailType } = this.props;
+  renderDealEmails = () => {
+    const { deals, emailType } = this.props;
+    let dealEmails = this.dealEmails();
+    dealEmails = dealEmails.join(",");
+    console.info(dealEmails);
     return (
       <span key={deals.length}>
-        <span id="mentorEmailsTip">
+        <span id="dealEmailsTip">
           {deals.length} {emailType}s
         </span>
         <Tooltip
           placement="right"
           isOpen={this.state.tooltipOpen}
-          target="mentorEmailsTip"
+          target="dealEmailsTip"
           toggle={this.tooltipToggle}
         >
-          {dealEmails ? dealEmails.join(",") : ""}
+          {dealEmails}
         </Tooltip>
       </span>
     );
   };
+  dealEmails = () => {
+    const { deals } = this.props;
+
+    if (deals && deals.length > 1) {
+      const emails = deals.map(deal => deal.email);
+      console.info(emails);
+      return emails;
+    }
+    return [];
+  };
 
   sendEmail = () => {
-    const { mentors } = this.props;
+    const { deals } = this.props;
     const { editorState } = this.state;
-    const promises = mentors.map(mentor => sendEmail(mentor, editorState));
+    const promises = deals.map(deal => sendEmail(deal, editorState));
     return Promise.all(promises);
   };
 
@@ -114,7 +127,7 @@ export default class Email extends Component {
                 <Label for="to" sm={2}>
                   <strong>To:</strong>
                 </Label>
-                {this.renderMentorEmails()} <br />
+                {this.renderDealEmails()} <br />
                 <Label for="templates" sm={2}>
                   <strong>Templates:</strong>
                 </Label>
