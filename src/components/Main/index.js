@@ -98,7 +98,6 @@ class Main extends Component {
   changeMentorStage = e => {
     const stage = e.target.value;
     const { mentorCity, mentorName } = this.state;
-    console.info(stage);
 
     this.setState(
       {
@@ -113,7 +112,6 @@ class Main extends Component {
 
     const { mentorStage, mentorName } = this.state;
 
-    console.info(city);
     return this.setState({ mentorCity: city }, () => {
       return this.refreshMentors(city, mentorStage, mentorName);
     });
