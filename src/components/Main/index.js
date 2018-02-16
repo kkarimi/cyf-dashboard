@@ -28,8 +28,8 @@ const App = () => (
 );
 
 const initialSearchState = {
-  mentorCity: "All",
-  studentCity: "All",
+  mentorCity: "London",
+  studentCity: "London",
   searchType: "Mentor",
   mentorStage: MENTORS.status.ALL,
   mentorName: "",
@@ -54,9 +54,9 @@ class Main extends Component {
   };
 
   refreshMentors = (city, stage, name) => {
-    const { mentorCity, mentorStage, mentorName } = this.state;
-    console.info("reffing mentors");
-    getMentors(mentorCity, mentorStage, mentorName).then(mentors => {
+    // const { mentorCity, mentorStage, mentorName } = this.state;
+    console.info("reffing mentors", city, stage, name);
+    getMentors(city, stage, name).then(mentors => {
       this.setState({
         mentors: mentors ? mentors : []
       });
@@ -64,8 +64,12 @@ class Main extends Component {
   };
 
   async componentDidMount() {
-    this.refreshMentors();
-    this.refreshStudents();
+    const { mentorCity, mentorStage, mentorName } = this.state;
+
+    console.info(
+      `mentorCity: ${mentorCity}, mentorStage: ${mentorStage}, mentorName: ${mentorName}`
+    );
+    this.refreshMentors(mentorCity, mentorStage, mentorName);
   }
 
   filter = e => {};
@@ -73,6 +77,8 @@ class Main extends Component {
   changeMentorStage = e => {
     const stage = e.target.value;
     const { mentorCity, mentorName } = this.state;
+    console.info(stage);
+    debugger;
     this.setState(
       {
         mentorStage: stage
@@ -83,15 +89,19 @@ class Main extends Component {
 
   changeMentorCity = e => {
     const city = e.target.value;
-    const { stage, name } = this.state;
-    return this.setState({ city: city }, () => {
-      return this.refreshMentors(city, stage, name);
+
+    const { mentorStage, mentorName } = this.state;
+
+    console.info(city);
+    return this.setState({ mentorCity: city }, () => {
+      return this.refreshMentors(city, mentorStage, mentorName);
     });
   };
 
   changeMentorName = e => {
     const name = e.target.value;
     const { mentorStage, mentorCity } = this.state;
+    console.info(name);
     this.setState({ name: name }, () =>
       this.refreshMentors(mentorCity, mentorStage, name)
     );
@@ -110,14 +120,18 @@ class Main extends Component {
 
   changeStudentCity = e => {
     const studentCity = e.target.value;
+    const { studentStage, studentName } = this.state;
     return this.setState({ studentCity: studentCity }, () => {
-      return this.refreshStudents();
+      return this.refreshStudents(studentCity, studentStage, studentName);
     });
   };
 
   changeStudentName = e => {
     const studentName = e.target.value;
-    this.setState({ studentName: studentName }, () => this.refreshStudents());
+    const { studentStage, studentCity } = this.state;
+    this.setState({ studentName: studentName }, () =>
+      this.refreshStudents(studentCity, studentStage, studentName)
+    );
   };
 
   mentorEmails = () => {
@@ -128,6 +142,11 @@ class Main extends Component {
   studentEmails = () => {
     const { students } = this.state;
     return students.map(student => student.email);
+  };
+
+  changeScreen = () => {
+    this.refreshMentors();
+    this.refreshStudents();
   };
 
   render() {

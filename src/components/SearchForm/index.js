@@ -2,12 +2,26 @@ import React, { Component } from "react";
 import { Form, FormGroup, Label, Input, Col } from "reactstrap";
 
 export default class SearchForm extends Component {
-  state = {};
+  state = {
+    name: ""
+  };
   _handleKeyPress = e => {
+    if (e) {
+      console.info(e);
+    }
     if (e.key === "Enter") {
       e.preventDefault();
+      debugger;
       this.props.filters.name(e);
     }
+  };
+  _handleNameChange = e => {
+    e.preventDefault();
+    const name = e.target.value;
+    console.info(name);
+    debugger;
+    this.setState({ name: name });
+    this.props.filters.name(name);
   };
   render() {
     const { filters } = this.props;
@@ -17,34 +31,34 @@ export default class SearchForm extends Component {
         <h4>Search</h4>
         <Form inline disabled>
           <FormGroup inline>
-            <Label for="exampleSelect" sm={2}>
+            <Label for="city" sm={2}>
               City
             </Label>
             <Col sm={20}>
               <Input
                 type="select"
                 name="select"
-                id="exampleSelect"
+                id="city"
                 onChange={filters.city}
               >
-                <option>All</option>
                 <option>London</option>
                 <option>Manchester</option>
                 <option>Glasgow</option>
                 <option>General</option>
                 <option>Other</option>
+                <option>All</option>
               </Input>
             </Col>
           </FormGroup>
           <FormGroup inline>
-            <Label for="exampleSelect" sm={2}>
+            <Label for="stage" sm={2}>
               Stage
             </Label>
             <Col sm={20}>
               <Input
                 type="select"
                 name="select"
-                id="exampleSelect"
+                id="stage"
                 onChange={filters.stage}
               >
                 <option>All</option>
@@ -59,16 +73,19 @@ export default class SearchForm extends Component {
             </Col>
           </FormGroup>
           <FormGroup inline>
-            <Label for="exampleName" sm={2}>
+            <Label for="name" sm={2}>
               Name
             </Label>
             <Col sm={20}>
               <Input
-                type="name"
+                type="text"
                 name="name"
                 id="name"
                 placeholder=""
+                onChange={this._handleNameChange}
+                onBlur={filters.name}
                 onKeyPress={this._handleKeyPress}
+                value={this.state.name}
               />
             </Col>
           </FormGroup>

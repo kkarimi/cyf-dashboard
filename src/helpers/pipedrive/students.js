@@ -33,36 +33,22 @@ const reshape = deals => {
     });
 };
 
-// const reshape2 = deals => {
-//   console.table(deals);
-//   return deals.map(deal => {
-//     debugger;
-//     console.info(deal);
-//     if (deal.person_id && deal.person_id.email) {
-//       console.info(deal.person_id.email);
-//     }
-//     const stage = getStudentStage(deal.stage_order_nr);
-//     return {
-//       id: deal.person_id,
-//       name: deal.person_name,
-//       city: deal.owner_name,
-//       owner_name: deal.owner_name,
-//       cc_email: deal.cc_email,
-//       stage: stage
-//     };
-//   });
-// };
-
 const cleanup = students => {
   console.info("cleanup", students);
   students = [...new Set(students)];
-  return students.filter(student => student !== null && student !== undefined);
+  return students.filter(
+    student =>
+      student !== null &&
+      student !== undefined &&
+      !student.name.includes("[WF]")
+  );
 };
 
 const cityFilter = (student, city) => {
   console.info("city", city, student);
   if (city !== "All")
     return student.filter(student => student.owner_name === cohorts[city]);
+  console.table(student);
   return student;
 };
 
@@ -77,8 +63,8 @@ function nameFilter(deals, name) {
   if (name !== null && name !== undefined) {
     return deals.filter(obj => {
       if (obj.name) {
-        let mentorName = obj.name.toLowerCase();
-        return mentorName.includes(name.toLowerCase());
+        let studentName = obj.name.toLowerCase();
+        return studentName.includes(name.toLowerCase());
       }
       return null;
     });
@@ -92,7 +78,7 @@ export const getStudents = (city, stage, name) => {
   return getFromPipeDrive()
     .then(deals => reshape(deals))
     .then(deals => cleanup(deals))
+    .then(deals => cityFilter(deals, city))
     .then(deals => stageFilter(deals, stage))
-    .then(deals => cityFilter(deals, city));
-  // .then(deals => nameFilter(deals, name));
+    .then(deals => nameFilter(deals, name));
 };
