@@ -53,7 +53,10 @@ export const MENTORS = {
 };
 
 export const STUDENTS = {
-  status: STUDENT_STATUS
+  status: STUDENT_STATUS,
+  pipeline: STUDENT_PIPELINE,
+  start: STUDENT_START,
+  limit: STUDENT_DEAL_LIMIT
 };
 
 export const getMentorStage = stageID => {

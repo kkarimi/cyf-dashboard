@@ -65,7 +65,7 @@ export default class Email extends Component {
     const { deals, emailType } = this.props;
     let dealEmails = this.dealEmails();
     dealEmails = dealEmails.join(",");
-    console.info(dealEmails);
+
     return (
       <span key={deals.length}>
         <span id="dealEmailsTip">
@@ -87,7 +87,6 @@ export default class Email extends Component {
 
     if (deals && deals.length > 1) {
       const emails = deals.map(deal => deal.email);
-      console.info(emails);
       return emails;
     }
     return [];

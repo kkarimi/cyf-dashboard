@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row } from "reactstrap";
+import { Container, Row, Badge } from "reactstrap";
 
 import "./App.css";
 
@@ -28,6 +28,7 @@ const App = () => (
 );
 
 const initialSearchState = {
+  searching: true,
   mentorCity: "London",
   studentCity: "London",
   searchType: "Mentor",
@@ -42,23 +43,41 @@ const initialSearchState = {
 class Main extends Component {
   state = initialSearchState;
 
-  refreshStudents = () => {
-    const { studentCity, studentStage, studentName } = this.state;
-    console.info("reffing students");
-    getStudents(studentCity, studentStage, studentName).then(students => {
-      console.table(students);
-      this.setState({
-        students: students ? students : []
+  refreshStudents = (city, stage, name) => {
+    this.setState({
+      searching: true
+    });
+    return new Promise((resolve, reject) => {
+      city = city !== undefined ? city : this.state.studentCity;
+      stage = stage !== undefined ? stage : this.state.studentStage;
+      name = name !== undefined ? name : this.state.studentName;
+
+      console.info("reffing students");
+      getStudents(city, stage, name).then(students => {
+        console.table(students);
+        this.setState({
+          searching: false,
+          students: students ? students : []
+        });
       });
     });
   };
 
   refreshMentors = (city, stage, name) => {
-    // const { mentorCity, mentorStage, mentorName } = this.state;
-    console.info("reffing mentors", city, stage, name);
-    getMentors(city, stage, name).then(mentors => {
-      this.setState({
-        mentors: mentors ? mentors : []
+    this.setState({
+      searching: true
+    });
+    return new Promise((resolve, reject) => {
+      city = city !== undefined ? city : this.state.mentorCity;
+      stage = stage !== undefined ? stage : this.state.mentorStage;
+      name = name !== undefined ? name : this.state.mentorName;
+
+      getMentors(city, stage, name).then(mentors => {
+        this.setState({
+          searching: false,
+          mentors: mentors
+        });
+        resolve(mentors);
       });
     });
   };
@@ -69,7 +88,12 @@ class Main extends Component {
     console.info(
       `mentorCity: ${mentorCity}, mentorStage: ${mentorStage}, mentorName: ${mentorName}`
     );
-    this.refreshMentors(mentorCity, mentorStage, mentorName);
+    this.refreshMentors(mentorCity, mentorStage, mentorName).then(mentors =>
+      this.setState({
+        mentors: mentors ? mentors : [],
+        searching: false
+      })
+    );
   }
 
   changeMentorStage = e => {
@@ -131,13 +155,8 @@ class Main extends Component {
     );
   };
 
-  changeScreen = () => {
-    this.refreshMentors();
-    this.refreshStudents();
-  };
-
   render() {
-    const { mentors, students } = this.state;
+    const { mentors, students, searching } = this.state;
 
     const mentorFilterActions = {
       city: this.changeMentorCity,
@@ -162,7 +181,9 @@ class Main extends Component {
 
     return (
       <div className="box">
-        <h3>Email Dashboard</h3>
+        <h3>
+          Email Dashboard <Badge color="secondary">Beta</Badge>
+        </h3>
         <br />
         <FormTabs
           mentorScreen={
@@ -170,6 +191,7 @@ class Main extends Component {
               deals={mentors}
               filterActions={mentorFilterActions}
               filters={mentorFilters}
+              searching={searching}
             />
           }
           studentScreen={
@@ -177,6 +199,7 @@ class Main extends Component {
               deals={students}
               filterActions={studentFilterActions}
               filters={studentFilters}
+              searching={searching}
             />
           }
           refreshMentors={this.refreshMentors}

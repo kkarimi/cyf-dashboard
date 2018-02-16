@@ -33,7 +33,8 @@ export default class MentorTable extends Component {
     this.setState({ collapse: !this.state.collapse });
   };
   render() {
-    const { deals } = this.props;
+    const { deals, searching } = this.props;
+    console.info(searching);
     const resultCount = deals.length;
 
     // if (resultCount < 1) return <div>Loading..</div>;
@@ -51,7 +52,7 @@ export default class MentorTable extends Component {
         </Button>
         {"  "}
         <span style={{ padding: "10px" }}>
-          <strong>Results.. {resultCount}</strong>
+          <strong>Results.. {searching ? "searching" : resultCount}</strong>
         </span>
 
         <Collapse isOpen={!this.state.collapse}>

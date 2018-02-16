@@ -76,6 +76,7 @@ const cleanup = mentors => {
 };
 
 export const getMentors = (city, stage, name) => {
+  console.info(city, stage, name);
   return getFromPipeDrive()
     .then(deals => reshape(deals))
     .then(deals => cleanup(deals))
