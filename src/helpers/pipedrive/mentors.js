@@ -85,26 +85,3 @@ export const getMentors = (city, stage, name) => {
     .then(deals => nameFilter(deals, name))
     .catch(error => Error(error));
 };
-
-// export const processDeals = deals => {
-//   return Promise.all(
-//     deals.map(deal => {
-//       console.log(
-//         `starting processing ${deal.id} from ${deal.city} with email ${
-//           deal.email
-//         } and cc email ${deal.cc_email}`
-//       );
-
-//       return (
-//         sendEmail(deal)
-//           // .then(deal => moveDeal(deal, MENTORS.status.CONTACTED))
-//           // // .then(inviteToSlack)
-//           .then(data => {
-//             console.log("finished processing  " + deal.id);
-//             return data;
-//           })
-//           .catch(error => Error(error))
-//       );
-//     })
-//   );
-// };

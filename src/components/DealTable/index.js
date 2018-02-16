@@ -36,9 +36,6 @@ export default class MentorTable extends Component {
     const { deals, searching } = this.props;
     console.info(searching);
     const resultCount = deals.length;
-
-    // if (resultCount < 1) return <div>Loading..</div>;
-    // <h5>Current state: {this.state.status}</h5>
     return (
       <div className="panel-box">
         <Button

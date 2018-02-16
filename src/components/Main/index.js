@@ -54,7 +54,6 @@ class Main extends Component {
 
       console.info("reffing students");
       getStudents(city, stage, name).then(students => {
-        console.table(students);
         this.setState({
           searching: false,
           students: students ? students : []
