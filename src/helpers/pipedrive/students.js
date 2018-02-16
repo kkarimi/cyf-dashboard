@@ -1,5 +1,5 @@
 import { PIPEDRIVE, getStudentStage } from "./constants";
-import { cohorts } from "../cyf";
+import { cohorts, getCity } from "../cyf";
 
 const removeNewLine = name => {
   if (name) return name.replace(/(\r\n|\n|\r)/gm, "");
@@ -20,6 +20,7 @@ const reshape = deals => {
     .map(deal => {
       const stage = getStudentStage(deal.stage_id);
       const name = removeNewLine(deal.title.replace("deal", ""));
+      const locality = getCity(deal.owner_name);
 
       return {
         id: deal.person_id ? deal.person_id.value : deal.id,
@@ -27,6 +28,7 @@ const reshape = deals => {
         city: deal.owner_name,
         email: deal.person_id ? deal.person_id.email[0].value : "",
         owner_name: deal.owner_name,
+        locality: locality,
         cc_email: deal.cc_email,
         stage: stage
       };
@@ -44,12 +46,15 @@ const cleanup = students => {
   );
 };
 
-const cityFilter = (student, city) => {
-  console.info("city", city, student);
-  if (city !== "All")
-    return student.filter(student => student.owner_name === cohorts[city]);
-  console.table(student);
-  return student;
+const cityFilter = (students, city) => {
+  if (city !== "All") {
+    const filter = students.filter(student => {
+      return student.owner_name === cohorts[city];
+    });
+
+    return filter;
+  }
+  return students;
 };
 
 const stageFilter = (deals, stage) => {

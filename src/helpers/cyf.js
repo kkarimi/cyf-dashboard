@@ -1,6 +1,7 @@
 export const cohorts = {
   London: "London",
-  Glasgow: "Glasgow",
+  Scotland: "Scotland",
+  Glasgow: "Scotland",
   Manchester: "Manchester",
   Newcastle: "Newcastle",
   Birmingham: "Birmingham",

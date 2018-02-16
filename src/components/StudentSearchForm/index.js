@@ -35,7 +35,7 @@ export default class StudentSearchForm extends Component {
               >
                 <option>London</option>
                 <option>Manchester</option>
-                <option>Glasgow</option>
+                <option value="Scotland">Glasgow</option>
                 <option>General</option>
                 <option>Other</option>
                 <option>All</option>
