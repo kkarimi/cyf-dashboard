@@ -52,7 +52,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "deploy": "AWS_PROFILE=cyf aws s3 cp build/ s3://cyfdashboard --acl public-read  --recursive"
+    "deploy": "yarn build && AWS_PROFILE=cyf aws s3 cp build/ s3://cyfdashboard --acl public-read  --recursive"
   },
   "jest": {
     "collectCoverageFrom": [
