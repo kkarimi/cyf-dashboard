@@ -151,15 +151,26 @@ class Main extends Component {
 
   render() {
     const { mentors, students } = this.state;
-    const mentorFilters = {
+
+    const mentorFilterActions = {
       city: this.changeMentorCity,
       stage: this.changeMentorStage,
       name: this.changeMentorName
     };
-    const studentFilters = {
+    const studentFilterActions = {
       city: this.changeStudentCity,
       stage: this.changeStudentStage,
       name: this.changeStudentName
+    };
+    const studentFilters = {
+      name: this.state.studentName,
+      stage: this.state.studentStage,
+      city: this.state.studentCity
+    };
+    const mentorFilters = {
+      name: this.state.mentorName,
+      stage: this.state.mentorStage,
+      city: this.state.mentorCity
     };
     const mentorEmails = this.mentorEmails();
     const studentEmails = this.studentEmails();
@@ -173,6 +184,7 @@ class Main extends Component {
             <MentorScreen
               deals={mentors}
               dealEmails={mentorEmails}
+              filterActions={mentorFilterActions}
               filters={mentorFilters}
             />
           }
@@ -180,6 +192,7 @@ class Main extends Component {
             <StudentScreen
               deals={students}
               dealEmails={studentEmails}
+              filterActions={studentFilterActions}
               filters={studentFilters}
             />
           }

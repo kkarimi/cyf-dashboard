@@ -24,7 +24,7 @@ export default class SearchForm extends Component {
     this.props.filters.name(name);
   };
   render() {
-    const { filters } = this.props;
+    const { filters, filterActions } = this.props;
     return (
       <div>
         <br />
@@ -36,10 +36,11 @@ export default class SearchForm extends Component {
             </Label>
             <Col sm={20}>
               <Input
+                value={filters.city}
                 type="select"
                 name="select"
                 id="city"
-                onChange={filters.city}
+                onChange={filterActions.city}
               >
                 <option>London</option>
                 <option>Manchester</option>
@@ -59,7 +60,8 @@ export default class SearchForm extends Component {
                 type="select"
                 name="select"
                 id="stage"
-                onChange={filters.stage}
+                value={filters.stage}
+                onChange={filterActions.stage}
               >
                 <option>All</option>
                 <option>Signed Up</option>
@@ -85,7 +87,7 @@ export default class SearchForm extends Component {
                 onChange={this._handleNameChange}
                 onBlur={filters.name}
                 onKeyPress={this._handleKeyPress}
-                value={this.state.name}
+                value={filters.name}
               />
             </Col>
           </FormGroup>

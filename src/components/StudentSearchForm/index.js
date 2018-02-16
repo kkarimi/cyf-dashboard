@@ -6,11 +6,11 @@ export default class StudentSearchForm extends Component {
   _handleKeyPress = e => {
     if (e.key === "Enter") {
       e.preventDefault();
-      this.props.filters.name(e);
+      this.props.filterActions.name(e);
     }
   };
   render() {
-    const { filters } = this.props;
+    const { filters, filterActions } = this.props;
     return (
       <div>
         <br />
@@ -25,7 +25,8 @@ export default class StudentSearchForm extends Component {
                 type="select"
                 name="select"
                 id="city"
-                onChange={filters.city}
+                value={filters.city}
+                onChange={filterActions.city}
               >
                 <option>All</option>
                 <option>London</option>
@@ -42,10 +43,11 @@ export default class StudentSearchForm extends Component {
             </Label>
             <Col sm={20}>
               <Input
+                value={filters.stage}
                 type="select"
                 name="select"
                 id="stage"
-                onChange={filters.stage}
+                onChange={filterActions.stage}
               >
                 <option>All</option>
                 <option>General Application</option>
@@ -66,7 +68,7 @@ export default class StudentSearchForm extends Component {
             </Col>
           </FormGroup>
           <FormGroup inline>
-            <Label for="exampleName" sm={2}>
+            <Label for="name" sm={2}>
               Name
             </Label>
             <Col sm={20}>
@@ -75,6 +77,7 @@ export default class StudentSearchForm extends Component {
                 name="name"
                 id="name"
                 placeholder=""
+                value={this.state.name}
                 onKeyPress={this._handleKeyPress}
               />
             </Col>
