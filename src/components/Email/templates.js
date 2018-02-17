@@ -71,8 +71,70 @@ As much or as little as you want! You can just drop-in and help our students on 
 If you no longer want to be contacted by us please drop us a line at
 <a href="mailto:london@codeyourfuture.io">london@codeyourfuture.io</a>`;
 
+const london_new_mentor = `
+Hi {{name}}!
+<br>
+<br>
+<br>
+Many thanks for your interest in joining CodeYourFuture!<br>
+<br>
+<br> 
+<br>
+CodeYourFuture is a non-profit organisation with the mission of helping every single refugee and asylum seeker with the dream of becoming a software developer. We offer a free 6-month training programme that equips refugees with essential professional and interpersonal skills. We support our students from the moment they apply till the moment they obtain their first tech role in the industry, and beyond. We are currently training over 30 students in 3 cities and 5 of our students have secured jobs in the tech industry upon graduation.<br>
+<br>
+<br>
+<br>
+<strong>What will you get if you join us?</strong><br>
+<br>
+<ul>
+<li>An opportunity to meet and support some of the most of the most amazing people out there.</li>
+<li>A chance to develop your professional and interpersonal skills.</li>
+<li>A way to share your amazing tech skills.</li>
+</ul>
+<br>
+<br>
+<br>
+<strong>Can I see your syllabus?</strong><br>
+<br>
+Yes, sure, it's open source and you can find it <a href="https://codeyourfuture.github.io/syllabus-master/">here</a>.<br>
+<br>
+<br>
+<br>
+We will start teaching the DB module from this Sunday 4th. We are starting a new class from early February as well!<br>
+<br>
+<br>
+<br>
+<strong>How can I get involved?</strong><br>
+<br>
+Just come to one of our induction sessions:
+<br>
+<ul>
+<li>Sunday  11th Feb</li>
+<li>Sunday 25th Feb</li>
+</ul>
+@ 3pm (4 Pentoville Road / ticketmaster offices)
+<br>
+<br>
+<br>
+<strong>How much commitment do you expect from me?</strong><br>
+<br>
+As much or as little as you want! You can just drop-in and help our students on Sundays or online in our Slack channel.<br>
+<br>
+Later on and if you wish, you could also test your teaching skills and help organise a module!.<br>
+<br>
+<br>
+<br>
+If some of these catch your eye or you have any other ideas about how you may be able to help, please <a href="mailto:london@codeyourfuture.io">email us</a>.<br>
+<br>
+<br>
+<br>
+Kind regards,<br>
+<br>
+<strong>CYF Team</strong>`;
+
 export const emails = {
   london: {
-    new_students: london_new_student_email
+    new_students: london_new_student_email,
+    new_mentors: london_new_mentor
   }
 };

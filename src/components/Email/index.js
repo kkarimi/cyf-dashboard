@@ -41,7 +41,7 @@ export default class Email extends Component {
     this.updateText(content);
   };
   welcomeNewMentor = () => {
-    const content = emails.london.new_students;
+    const content = emails.london.new_mentors;
     this.updateText(content);
   };
   tooltipToggle = () => {
@@ -56,6 +56,11 @@ export default class Email extends Component {
         <li>
           <div className="link" onClick={this.welcomeNewStudent}>
             Welcome New Student
+          </div>
+        </li>
+        <li>
+          <div className="link" onClick={this.welcomeNewMentor}>
+            Welcome New Mentor
           </div>
         </li>
       </ul>
